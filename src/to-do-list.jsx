@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function toDoList() {
+function ToDoList() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
   const [editIndex, setEditIndex] = useState(null);
@@ -8,30 +8,34 @@ function toDoList() {
 
   // Load tasks from localStorage when the component mounts
   useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const storedTasks = JSON.parse(localStorage.getItem("tasks")) ?? [];
     setTasks(storedTasks);
   }, []);
-
-  // Save tasks to localStorage whenever tasks state changes
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
 
   function handleInputChange(e) {
     setNewTask(e.target.value);
   }
 
+  // Add Task and store it in both state and localStorage
   function addTask() {
     if (newTask.trim() !== "") {
       const updatedTasks = [...tasks, newTask];
       setTasks(updatedTasks);
-      setNewTask("");
+
+      // Save the updated tasks to localStorage
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+
+      setNewTask(""); // Clear the input field
     }
   }
 
+  // Delete Task and remove it from both state and localStorage
   function deleteTask(index) {
     const updatedTasks = tasks.filter((_, i) => i !== index);
     setTasks(updatedTasks);
+
+    // Save the updated tasks to localStorage
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   }
 
   function moveTaskUp(index) {
@@ -42,6 +46,9 @@ function toDoList() {
         updatedTasks[index],
       ];
       setTasks(updatedTasks);
+
+      // Save the updated tasks to localStorage
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
   }
 
@@ -53,6 +60,9 @@ function toDoList() {
         updatedTasks[index],
       ];
       setTasks(updatedTasks);
+
+      // Save the updated tasks to localStorage
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
   }
 
@@ -66,6 +76,10 @@ function toDoList() {
       const updatedTasks = [...tasks];
       updatedTasks[editIndex] = editText;
       setTasks(updatedTasks);
+
+      // Save the updated tasks to localStorage
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+
       setEditIndex(null);
       setEditText("");
     }
@@ -140,4 +154,4 @@ function toDoList() {
   );
 }
 
-export default toDoList;
+export default ToDoList;
