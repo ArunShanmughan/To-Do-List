@@ -16,25 +16,21 @@ function ToDoList() {
     setNewTask(e.target.value);
   }
 
-  // Add Task and store it in both state and localStorage
   function addTask() {
     if (newTask.trim() !== "") {
       const updatedTasks = [...tasks, newTask];
       setTasks(updatedTasks);
 
-      // Save the updated tasks to localStorage
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 
-      setNewTask(""); // Clear the input field
+      setNewTask(""); 
     }
   }
 
-  // Delete Task and remove it from both state and localStorage
   function deleteTask(index) {
     const updatedTasks = tasks.filter((_, i) => i !== index);
     setTasks(updatedTasks);
 
-    // Save the updated tasks to localStorage
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   }
 
@@ -47,7 +43,6 @@ function ToDoList() {
       ];
       setTasks(updatedTasks);
 
-      // Save the updated tasks to localStorage
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
   }
@@ -61,7 +56,6 @@ function ToDoList() {
       ];
       setTasks(updatedTasks);
 
-      // Save the updated tasks to localStorage
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
   }
@@ -77,7 +71,6 @@ function ToDoList() {
       updatedTasks[editIndex] = editText;
       setTasks(updatedTasks);
 
-      // Save the updated tasks to localStorage
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 
       setEditIndex(null);
